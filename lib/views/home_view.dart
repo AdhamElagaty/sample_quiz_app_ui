@@ -5,6 +5,8 @@ import 'package:sample_quiz_app_ui/views/widgets/welcome_home_widget.dart';
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
+  final String id = "HomeView";
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

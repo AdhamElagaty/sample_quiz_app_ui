@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sample_quiz_app_ui/views/create_quiz_view.dart';
 import 'package:sample_quiz_app_ui/views/home_view.dart';
 
 void main() {
@@ -10,10 +11,14 @@ class SampleQuizApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "QuizIe",
-      home: HomeView(),
+      routes: {
+        const HomeView().id: (context) => const HomeView(),
+        const CreateQuizView().id: (context) => const CreateQuizView(),
+      },
+      initialRoute: const HomeView().id,
     );
   }
 }
