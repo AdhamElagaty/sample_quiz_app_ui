@@ -20,14 +20,15 @@ class QuestionModelAdapter extends TypeAdapter<QuestionModel> {
       id: fields[0] as int?,
       questionText: fields[1] as String,
       answers: (fields[2] as List?)?.cast<AnswerModel>(),
-      quizId: fields[3] as int?,
+      rightAnswer: fields[3] as AnswerModel?,
+      quizId: fields[4] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, QuestionModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -35,6 +36,8 @@ class QuestionModelAdapter extends TypeAdapter<QuestionModel> {
       ..writeByte(2)
       ..write(obj.answers)
       ..writeByte(3)
+      ..write(obj.rightAnswer)
+      ..writeByte(4)
       ..write(obj.quizId);
   }
 
