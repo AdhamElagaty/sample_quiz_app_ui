@@ -9,18 +9,22 @@ class QuestionModel extends HiveObject {
   int? id; // Make id nullable and not final
 
   @HiveField(1)
-  final String questionText;
+  String questionText;
 
   @HiveField(2)
-  final List<AnswerModel>? answers;
+  List<AnswerModel>? answers;
 
   @HiveField(3)
-  final int? quizId;
+  AnswerModel? rightAnswer;
+
+  @HiveField(4)
+  int? quizId;
 
   QuestionModel({
     this.id, // Remove id from the required parameters
     required this.questionText,
     this.answers,
+    this.rightAnswer,
     this.quizId,
   });
 }

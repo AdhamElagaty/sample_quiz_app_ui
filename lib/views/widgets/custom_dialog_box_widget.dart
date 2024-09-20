@@ -51,7 +51,7 @@ class CustomDialogBoxWidget extends StatelessWidget {
                             height: 29,
                             textName: textButton,
                             textStyle: AppStyle.styleMedium18,
-                            onPressed: () {}),
+                            onPressed: onPressed),
                         const SizedBox(height: 12),
                       ],
                     ),

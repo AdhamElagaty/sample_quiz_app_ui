@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sample_quiz_app_ui/views/cubits/add_quiz_cubit/add_quiz_cubit.dart';
+import 'package:sample_quiz_app_ui/views/cubits/add_quiz_cubit/add_quiz_state.dart';
 import 'package:sample_quiz_app_ui/views/widgets/custom_app_bar_widget.dart';
 import 'package:sample_quiz_app_ui/views/widgets/enter_quiz_name_view_body.dart';
+import 'package:sample_quiz_app_ui/views/widgets/enter_quiz_question_view_body.dart';
 
 class CreateQuizView extends StatelessWidget {
   const CreateQuizView({super.key});
@@ -9,12 +13,11 @@ class CreateQuizView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Check if the keyboard is open
     final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom != 0;
 
     return Scaffold(
       floatingActionButton: isKeyboardOpen
-          ? null // Don't show the FAB when the keyboard is open
+          ? null
           : FloatingActionButton(
               backgroundColor: const Color.fromARGB(142, 184, 232, 147),
               onPressed: () {
@@ -28,8 +31,23 @@ class CreateQuizView extends StatelessWidget {
             ),
       appBar: const CustomAppBarWidget(),
       backgroundColor: const Color(0xff86948F),
-      body: const SingleChildScrollView(
-        child: EnterQuizNameViewBody(),
+      body: BlocProvider(
+        create: (context) => AddQuizCubit(),
+        child: SingleChildScrollView(
+          child: BlocConsumer<AddQuizCubit, AddQuizState>(
+            listener: (context, state) {
+              // Handle state changes
+            },
+            builder: (context, state) {
+              return AnimatedSwitcher(
+                duration: const Duration(milliseconds: 400),
+                child: state is AddQuizInitial || state is CreateQuizName
+                    ? const EnterQuizNameViewBody()
+                    : const EnterQuizQuestionViewBody(),
+              );
+            },
+          ),
+        ),
       ),
     );
   }
