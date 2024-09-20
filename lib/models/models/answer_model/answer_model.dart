@@ -8,10 +8,10 @@ class AnswerModel extends HiveObject {
   int? id; // Make id nullable and not final
 
   @HiveField(1)
-  final String answerText;
+  String answerText;
 
   @HiveField(2)
-  final int? questionId;
+  int? questionId;
 
   AnswerModel({
     this.id, // Remove id from the required parameters
