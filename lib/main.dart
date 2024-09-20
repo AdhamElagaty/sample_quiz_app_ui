@@ -9,6 +9,8 @@ import 'package:sample_quiz_app_ui/views/create_quiz_view.dart';
 import 'package:sample_quiz_app_ui/views/home_view.dart';
 
 void main() async {
+  await Hive.initFlutter();
+
   Hive.registerAdapter(AnswerModelAdapter());
   Hive.registerAdapter(QuestionModelAdapter());
   Hive.registerAdapter(QuizModelAdapter());
