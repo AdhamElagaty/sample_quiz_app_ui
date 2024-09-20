@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sample_quiz_app_ui/views/cubits/add_quiz_cubit/add_quiz_cubit.dart';
+import 'package:sample_quiz_app_ui/views/cubits/add_quiz_cubit/add_quiz_state.dart';
 import 'package:sample_quiz_app_ui/views/widgets/custom_dialog_box_widget.dart';
 import 'package:sample_quiz_app_ui/views/widgets/custom_text_form_field_widget.dart';
 
@@ -26,14 +29,26 @@ class EnterQuizNameViewBody extends StatelessWidget {
           title: "Create Quiz",
           content: Padding(
             padding: const EdgeInsets.all(22.0),
-            child: CustomTextFormFieldWidget(
-              hintText: "write quiz name here",
-              labelText: "Quiz Name",
-              controller: TextEditingController(),
+            child: BlocBuilder<AddQuizCubit, AddQuizState>(
+              builder: (context, state) {
+                return Form(
+                  key: BlocProvider.of<AddQuizCubit>(context).formKeyQuizName,
+                  autovalidateMode: BlocProvider.of<AddQuizCubit>(context)
+                      .autovalidateModeQuizName,
+                  child: CustomTextFormFieldWidget(
+                    hintText: "write quiz name here",
+                    labelText: "Quiz Name",
+                    controller: BlocProvider.of<AddQuizCubit>(context)
+                        .quizNameController,
+                    validator: BlocProvider.of<AddQuizCubit>(context)
+                        .validateQuizNameText,
+                  ),
+                );
+              },
             ),
           ),
           textButton: "Next",
-          onPressed: () {},
+          onPressed: BlocProvider.of<AddQuizCubit>(context).addQuizName,
         )),
       ],
     );
