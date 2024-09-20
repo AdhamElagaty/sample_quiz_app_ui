@@ -9,16 +9,16 @@ class TakedQuizModel extends HiveObject {
   int? id; // Make id nullable and not final
 
   @HiveField(1)
-  final String personName;
+  String personName;
 
   @HiveField(2)
-  final String dateTime;
+  String dateTime;
 
   @HiveField(3)
-  final int? quizId;
+  int? quizId;
 
   @HiveField(4)
-  final QuizModel quiz;
+  QuizModel quiz;
 
   TakedQuizModel({
     this.id, // Remove id from the required parameters
