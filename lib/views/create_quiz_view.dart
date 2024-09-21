@@ -36,7 +36,9 @@ class CreateQuizView extends StatelessWidget {
         child: SingleChildScrollView(
           child: BlocConsumer<AddQuizCubit, AddQuizState>(
             listener: (context, state) {
-              // Handle state changes
+              if (state is AddQuizSuccess) {
+                Navigator.pop(context);
+              }
             },
             builder: (context, state) {
               return AnimatedSwitcher(
