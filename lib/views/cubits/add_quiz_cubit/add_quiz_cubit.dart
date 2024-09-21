@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sample_quiz_app_ui/controllers/quiz_controller.dart';
 import 'package:sample_quiz_app_ui/models/models/answer_model/answer_model.dart';
 import 'package:sample_quiz_app_ui/models/models/question_model/question_model.dart';
 import 'package:sample_quiz_app_ui/models/models/quiz_model/quiz_model.dart';
@@ -117,6 +118,15 @@ class AddQuizCubit extends Cubit<AddQuizState> {
         autovalidateModeAnswer = AutovalidateMode.always;
       }
       emit(AddQuestionFailure(errorMessage: "Error! Enter All Data Fields"));
+    }
+  }
+
+  Future<void> createQuiz() async {
+    try {
+      await QuizController().addQuiz(quizModel);
+      emit(AddQuizSuccess());
+    } catch (e) {
+      emit(AddQuizFailure(errorMessage: "Error! on Create new Quiz"));
     }
   }
 }

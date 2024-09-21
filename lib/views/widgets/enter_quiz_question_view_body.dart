@@ -96,7 +96,9 @@ class EnterQuizQuestionViewBody extends StatelessWidget {
     // Add a button at the end of the list
     taskWidgets.add(CustomElevatedButtonWidget(
       textName: "Create Quiz",
-      onPressed: () {},
+      onPressed: () {
+        BlocProvider.of<AddQuizCubit>(context).createQuiz();
+      },
       width: MediaQuery.of(context).size.width - 22,
     ));
 
