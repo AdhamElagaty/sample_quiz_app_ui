@@ -7,6 +7,7 @@ import 'package:sample_quiz_app_ui/models/models/taked_quiz_model/taked_quiz_mod
 import 'package:sample_quiz_app_ui/utils/constants.dart';
 import 'package:sample_quiz_app_ui/views/create_quiz_view.dart';
 import 'package:sample_quiz_app_ui/views/home_view.dart';
+import 'package:sample_quiz_app_ui/views/take_quiz_view.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -34,6 +35,7 @@ class SampleQuizApp extends StatelessWidget {
       routes: {
         const HomeView().id: (context) => const HomeView(),
         const CreateQuizView().id: (context) => const CreateQuizView(),
+        const TakeQuizView().id: (context) => const TakeQuizView(),
       },
       initialRoute: const HomeView().id,
     );
