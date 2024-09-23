@@ -6,25 +6,25 @@ part 'taked_quiz_model.g.dart';
 @HiveType(typeId: 3)
 class TakedQuizModel extends HiveObject {
   @HiveField(0)
-  int? id; // Make id nullable and not final
+  String? personName;
 
   @HiveField(1)
-  String personName;
+  String? dateTime;
 
   @HiveField(2)
-  String dateTime;
-
-  @HiveField(3)
   int? quizId;
 
+  @HiveField(3)
+  QuizModel? quiz;
+
   @HiveField(4)
-  QuizModel quiz;
+  int? score;
 
   TakedQuizModel({
-    this.id, // Remove id from the required parameters
-    required this.personName,
-    required this.dateTime,
+    this.personName,
+    this.dateTime,
     this.quizId,
-    required this.quiz,
+    this.quiz,
+    this.score,
   });
 }

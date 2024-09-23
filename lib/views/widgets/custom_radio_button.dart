@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
 
 class CustomRadioButton<T> extends StatelessWidget {
-  final Widget child;
-  final T value;
-  final T groupValue;
-  final ValueChanged<T?> onChanged;
-  final Color activeColor;
-  final Color inactiveColor;
-  final double size;
-
   const CustomRadioButton({
     super.key,
     required this.child,
@@ -18,7 +10,17 @@ class CustomRadioButton<T> extends StatelessWidget {
     this.activeColor = Colors.green,
     this.inactiveColor = Colors.grey,
     this.size = 24.0,
+    this.alignment,
   });
+
+  final Widget child;
+  final T value;
+  final T groupValue;
+  final ValueChanged<T?> onChanged;
+  final Color activeColor;
+  final Color inactiveColor;
+  final double size;
+  final AlignmentGeometry? alignment;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class CustomRadioButton<T> extends StatelessWidget {
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
-        alignment: Alignment.topCenter,
+        alignment: alignment ?? Alignment.topCenter,
         constraints:
             BoxConstraints(maxWidth: MediaQuery.of(context).size.width),
         decoration: BoxDecoration(

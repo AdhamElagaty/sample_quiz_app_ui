@@ -17,11 +17,11 @@ class TakedQuizModelAdapter extends TypeAdapter<TakedQuizModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return TakedQuizModel(
-      id: fields[0] as int?,
-      personName: fields[1] as String,
-      dateTime: fields[2] as String,
-      quizId: fields[3] as int?,
-      quiz: fields[4] as QuizModel,
+      personName: fields[0] as String?,
+      dateTime: fields[1] as String?,
+      quizId: fields[2] as int?,
+      quiz: fields[3] as QuizModel?,
+      score: fields[4] as int?,
     );
   }
 
@@ -30,15 +30,15 @@ class TakedQuizModelAdapter extends TypeAdapter<TakedQuizModel> {
     writer
       ..writeByte(5)
       ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(1)
       ..write(obj.personName)
-      ..writeByte(2)
+      ..writeByte(1)
       ..write(obj.dateTime)
-      ..writeByte(3)
+      ..writeByte(2)
       ..write(obj.quizId)
+      ..writeByte(3)
+      ..write(obj.quiz)
       ..writeByte(4)
-      ..write(obj.quiz);
+      ..write(obj.score);
   }
 
   @override

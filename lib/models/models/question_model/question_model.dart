@@ -6,25 +6,13 @@ part 'question_model.g.dart';
 @HiveType(typeId: 1)
 class QuestionModel extends HiveObject {
   @HiveField(0)
-  int? id; // Make id nullable and not final
-
-  @HiveField(1)
   String questionText;
 
-  @HiveField(2)
+  @HiveField(1)
   List<AnswerModel>? answers;
 
-  @HiveField(3)
-  AnswerModel? rightAnswer;
-
-  @HiveField(4)
-  int? quizId;
-
   QuestionModel({
-    this.id, // Remove id from the required parameters
     required this.questionText,
     this.answers,
-    this.rightAnswer,
-    this.quizId,
   });
 }

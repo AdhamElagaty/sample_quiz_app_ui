@@ -5,9 +5,6 @@ part 'quiz_model.g.dart';
 
 @HiveType(typeId: 2)
 class QuizModel extends HiveObject {
-  @HiveField(0)
-  int? id;
-
   @HiveField(1)
   String? name;
 
@@ -15,7 +12,6 @@ class QuizModel extends HiveObject {
   List<QuestionModel>? questions;
 
   QuizModel({
-    this.id,
     this.name,
     this.questions,
   });

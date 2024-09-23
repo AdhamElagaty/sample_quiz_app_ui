@@ -4,6 +4,8 @@ import 'package:sample_quiz_app_ui/models/models/quiz_model/quiz_model.dart';
 import 'package:sample_quiz_app_ui/utils/app_style.dart';
 import 'package:sample_quiz_app_ui/views/cubits/quiz_cubit/quiz_cubit.dart';
 import 'package:sample_quiz_app_ui/views/cubits/quiz_cubit/quiz_state.dart';
+import 'package:sample_quiz_app_ui/views/cubits/task_quiz_cubit/task_quiz_cubit.dart';
+import 'package:sample_quiz_app_ui/views/take_a_quiz_view.dart';
 import 'package:sample_quiz_app_ui/views/widgets/quiz_widget.dart';
 
 class QuizzesViewBodyWidget extends StatelessWidget {
@@ -75,7 +77,21 @@ class QuizzesViewBodyWidget extends StatelessWidget {
           child: QuizWidget(
             quizName: quizzes[index].name!,
             numberOfQuestion: quizzes[index].questions!.length.toString(),
-            onTap: () {},
+            id: quizzes[index].key,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return BlocProvider(
+                      create: (context) =>
+                          TakeQuizCubit(quizModel: quizzes[index]),
+                      child: const TakeAQuizView(),
+                    );
+                  },
+                ),
+              );
+            },
           ),
         ),
       ),

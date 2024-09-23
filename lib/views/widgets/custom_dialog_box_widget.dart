@@ -9,11 +9,13 @@ class CustomDialogBoxWidget extends StatelessWidget {
     required this.title,
     required this.textButton,
     required this.onPressed,
+    this.titleStyle,
   });
 
   final Widget content;
   final String title;
   final String textButton;
+  final TextStyle? titleStyle;
   final void Function()? onPressed;
 
   @override
@@ -75,7 +77,7 @@ class CustomDialogBoxWidget extends StatelessWidget {
                   child: Center(
                       child: Text(
                     title,
-                    style: AppStyle.styleBold22,
+                    style: titleStyle ?? AppStyle.styleBold22,
                   )),
                 ),
               ),

@@ -18,8 +18,11 @@ class AddQuizCubit extends Cubit<AddQuizState> {
   final GlobalKey<FormState> formKeyQuestion = GlobalKey<FormState>();
   final questionController = TextEditingController();
   AutovalidateMode autovalidateModeQuestion = AutovalidateMode.disabled;
+
   QuizModel quizModel = QuizModel(questions: []);
   QuestionModel addQuestionModel = QuestionModel(questionText: "", answers: []);
+
+  int? rightAnswerSelectedIndex;
 
   void addQuizName() {
     if (formKeyQuizName.currentState!.validate()) {
@@ -64,16 +67,21 @@ class AddQuizCubit extends Cubit<AddQuizState> {
     return null;
   }
 
-  void selectRightAnswer(AnswerModel rightAnswer) {
-    addQuestionModel.rightAnswer = rightAnswer;
+  void selectRightAnswer(int index) {
+    if (rightAnswerSelectedIndex == null) {
+      rightAnswerSelectedIndex = index;
+    } else {
+      addQuestionModel.answers![rightAnswerSelectedIndex!].isRightAnswer = null;
+      rightAnswerSelectedIndex = index;
+    }
+    addQuestionModel.answers![index].isRightAnswer = true;
     emit(RightAnswerSelected());
   }
 
   void removeAnswer(int indexOfAnswer) {
-    if (addQuestionModel.rightAnswer != null &&
-        (addQuestionModel.rightAnswer! ==
-            addQuestionModel.answers![indexOfAnswer])) {
-      addQuestionModel.rightAnswer = null;
+    if (addQuestionModel.answers![indexOfAnswer].isRightAnswer == true) {
+      addQuestionModel.answers![indexOfAnswer].isRightAnswer = false;
+      rightAnswerSelectedIndex = null;
     }
     addQuestionModel.answers!.removeAt(indexOfAnswer);
     emit(AnswerRemoved());
@@ -83,6 +91,7 @@ class AddQuizCubit extends Cubit<AddQuizState> {
     if (formKeyAnswer.currentState!.validate()) {
       addQuestionModel.answers!.add(AnswerModel(
         answerText: answerController.text,
+        isSelected: null,
       ));
       answerController.clear();
       autovalidateModeAnswer = AutovalidateMode.disabled;
@@ -96,6 +105,7 @@ class AddQuizCubit extends Cubit<AddQuizState> {
   void restAddQuestionBottomSheet() {
     questionController.clear();
     answerController.clear();
+    rightAnswerSelectedIndex = null;
     autovalidateModeQuestion = AutovalidateMode.disabled;
     autovalidateModeAnswer = AutovalidateMode.disabled;
     addQuestionModel = QuestionModel(questionText: "", answers: []);
@@ -104,7 +114,7 @@ class AddQuizCubit extends Cubit<AddQuizState> {
   void addQuestion() {
     if (formKeyQuestion.currentState!.validate() &&
         addQuestionModel.answers!.length >= 2) {
-      if (addQuestionModel.rightAnswer != null) {
+      if (rightAnswerSelectedIndex != null) {
         addQuestionModel.questionText = questionController.text;
         quizModel.questions!.add(addQuestionModel);
         emit(AddQuestionSuccess());
