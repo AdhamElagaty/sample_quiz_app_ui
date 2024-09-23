@@ -6,11 +6,13 @@ class QuizWidget extends StatelessWidget {
     super.key,
     required this.quizName,
     required this.numberOfQuestion,
+    required this.id,
     this.onTap,
   });
 
   final String quizName;
   final String numberOfQuestion;
+  final int id;
   final Function()? onTap;
 
   @override
@@ -47,9 +49,12 @@ class QuizWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              Image.asset(
-                "assets/images/quiz_logo.png",
-                width: 90,
+              Hero(
+                tag: id,
+                child: Image.asset(
+                  "assets/images/quiz_logo.png",
+                  width: 90,
+                ),
               ),
             ],
           ),
