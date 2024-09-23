@@ -17,28 +17,19 @@ class QuestionModelAdapter extends TypeAdapter<QuestionModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return QuestionModel(
-      id: fields[0] as int?,
-      questionText: fields[1] as String,
-      answers: (fields[2] as List?)?.cast<AnswerModel>(),
-      rightAnswer: fields[3] as AnswerModel?,
-      quizId: fields[4] as int?,
+      questionText: fields[0] as String,
+      answers: (fields[1] as List?)?.cast<AnswerModel>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, QuestionModel obj) {
     writer
-      ..writeByte(5)
-      ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(1)
-      ..write(obj.questionText)
       ..writeByte(2)
-      ..write(obj.answers)
-      ..writeByte(3)
-      ..write(obj.rightAnswer)
-      ..writeByte(4)
-      ..write(obj.quizId);
+      ..writeByte(0)
+      ..write(obj.questionText)
+      ..writeByte(1)
+      ..write(obj.answers);
   }
 
   @override

@@ -13,31 +13,24 @@ class GenerateAddAnswerList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AddQuizCubit, AddQuizState>(
       builder: (context, state) {
+        var cubit = BlocProvider.of<AddQuizCubit>(context);
         return ListView.builder(
-          itemCount: BlocProvider.of<AddQuizCubit>(context)
-              .addQuestionModel
-              .answers!
-              .length,
+          itemCount: cubit.addQuestionModel.answers!.length,
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.all(4.0),
             child: CustomRadioButton<AnswerModel?>(
               onChanged: (value) {
-                BlocProvider.of<AddQuizCubit>(context)
-                    .selectRightAnswer(value!);
+                BlocProvider.of<AddQuizCubit>(context).selectRightAnswer(index);
               },
-              groupValue: BlocProvider.of<AddQuizCubit>(context)
-                  .addQuestionModel
-                  .rightAnswer,
-              value: BlocProvider.of<AddQuizCubit>(context)
-                  .addQuestionModel
-                  .answers![index],
+              groupValue: cubit.rightAnswerSelectedIndex == null
+                  ? null
+                  : cubit.addQuestionModel
+                      .answers![cubit.rightAnswerSelectedIndex!],
+              value: cubit.addQuestionModel.answers![index],
               child: AddQuestionWidget(
-                text: BlocProvider.of<AddQuizCubit>(context)
-                    .addQuestionModel
-                    .answers![index]
-                    .answerText,
+                text: cubit.addQuestionModel.answers![index].answerText,
                 onPressed: () {
-                  BlocProvider.of<AddQuizCubit>(context).removeAnswer(index);
+                  cubit.removeAnswer(index);
                 },
               ),
             ),

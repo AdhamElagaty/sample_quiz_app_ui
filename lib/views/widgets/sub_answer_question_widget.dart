@@ -23,13 +23,10 @@ class SubAnswerQuestionWidget extends StatelessWidget {
         ),
         const Spacer(),
         BlocProvider.of<AddQuizCubit>(context)
-                    .quizModel
-                    .questions![indexQuestion]
-                    .answers![index] ==
-                BlocProvider.of<AddQuizCubit>(context)
-                    .quizModel
-                    .questions![indexQuestion]
-                    .rightAnswer!
+                .quizModel
+                .questions![indexQuestion]
+                .answers![index]
+                .isRightAnswer!
             ? const Icon(
                 Icons.check,
                 size: 32,

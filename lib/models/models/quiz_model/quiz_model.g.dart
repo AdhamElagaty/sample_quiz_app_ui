@@ -17,7 +17,6 @@ class QuizModelAdapter extends TypeAdapter<QuizModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return QuizModel(
-      id: fields[0] as int?,
       name: fields[1] as String?,
       questions: (fields[2] as List?)?.cast<QuestionModel>(),
     );
@@ -26,9 +25,7 @@ class QuizModelAdapter extends TypeAdapter<QuizModel> {
   @override
   void write(BinaryWriter writer, QuizModel obj) {
     writer
-      ..writeByte(3)
-      ..writeByte(0)
-      ..write(obj.id)
+      ..writeByte(2)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)

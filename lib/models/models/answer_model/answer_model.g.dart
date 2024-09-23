@@ -17,10 +17,9 @@ class AnswerModelAdapter extends TypeAdapter<AnswerModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return AnswerModel(
-      id: fields[0] as int?,
-      answerText: fields[1] as String,
-      questionId: fields[2] as int?,
-    );
+      answerText: fields[0] as String,
+      isSelected: fields[2] as bool?,
+    )..isRightAnswer = fields[1] as bool?;
   }
 
   @override
@@ -28,11 +27,11 @@ class AnswerModelAdapter extends TypeAdapter<AnswerModel> {
     writer
       ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(1)
       ..write(obj.answerText)
+      ..writeByte(1)
+      ..write(obj.isRightAnswer)
       ..writeByte(2)
-      ..write(obj.questionId);
+      ..write(obj.isSelected);
   }
 
   @override
