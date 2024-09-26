@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_quiz_app_ui/utils/app_style.dart';
-import 'package:sample_quiz_app_ui/views/cubits/task_quiz_cubit/task_quiz_cubit.dart';
+import 'package:sample_quiz_app_ui/views/cubits/task_quiz_cubit/take_quiz_cubit.dart';
 import 'package:sample_quiz_app_ui/views/widgets/custom_dialog_box_widget.dart';
 
 class CompleteTakeAQuizViewBody extends StatelessWidget {
-  const CompleteTakeAQuizViewBody({super.key});
+  const CompleteTakeAQuizViewBody({
+    super.key,
+    this.imageTag,
+  });
+
+  final int? imageTag;
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +20,18 @@ class CompleteTakeAQuizViewBody extends StatelessWidget {
           height: 82,
           width: double.infinity,
         ),
-        Hero(
-          tag: BlocProvider.of<TakeQuizCubit>(context).quizModel.key,
-          child: Image.asset(
-            "assets/images/complete_quiz_logo.png",
-            width: 260,
-          ),
-        ),
+        imageTag == null
+            ? Image.asset(
+                "assets/images/complete_quiz_logo.png",
+                width: 260,
+              )
+            : Hero(
+                tag: imageTag!,
+                child: Image.asset(
+                  "assets/images/complete_quiz_logo.png",
+                  width: 260,
+                ),
+              ),
         const SizedBox(
           height: 32,
         ),
@@ -52,7 +62,7 @@ class CompleteTakeAQuizViewBody extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            BlocProvider.of<TakeQuizCubit>(context).goToAnswers();
+            BlocProvider.of<TakeQuizCubit>(context).viewAnswers();
           },
           borderRadius: BorderRadius.circular(22),
           splashColor: Colors.grey.withOpacity(0.5),
