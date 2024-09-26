@@ -72,23 +72,26 @@ class TakedQuizzesViewBodyWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0),
         child: BlocProvider(
           create: (context) => TakedQuizCubit(),
-          child: TakedQuizWidget(
-            takedQuizModel: takedQuizzes[index],
-            onLongPress: () {
-              viewCustomDialog(
-                context: context,
-                title: "Delete Taked Quiz",
-                content: Text(
-                  "Do You Want Delete ${takedQuizzes[index].quiz!.name!.trim()} Quiz Taked by ${takedQuizzes[index].personName!.trim()} from history 🤔",
-                  style: AppStyle.styleRegular18,
-                ),
-                cancelButtonText: "Cancel",
-                confirmButtonText: "Delete",
-                onConfirm: () async {
-                  cubit.deleteTakedQuiz(index);
-                },
-              );
-            },
+          child: Builder(
+            builder: (itemContext) => TakedQuizWidget(
+              takedQuizModel: takedQuizzes[index],
+              onLongPress: () {
+                viewCustomDialog(
+                  context: itemContext,
+                  title: "Delete Taked Quiz",
+                  content: Text(
+                    "Do You Want Delete ${takedQuizzes[index].quiz!.name!.trim()} Quiz Taked by ${takedQuizzes[index].personName!.trim()} from history 🤔",
+                    style: AppStyle.styleRegular18,
+                  ),
+                  cancelButtonText: "Cancel",
+                  confirmButtonText: "Delete",
+                  onConfirm: () async {
+                    await cubit.deleteTakedQuiz(index);
+                    itemContext.read<TakedQuizCubit>().resetWidgetState();
+                  },
+                );
+              },
+            ),
           ),
         ),
       ),

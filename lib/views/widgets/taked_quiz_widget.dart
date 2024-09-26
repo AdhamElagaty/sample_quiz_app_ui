@@ -108,7 +108,7 @@ class TakedQuizWidget extends StatelessWidget {
             ],
           ),
           Hero(
-            tag: takedQuizModel.key,
+            tag: takedQuizModel.key ?? "quiz_logo",
             child: Image.asset(
               "assets/images/quiz_logo.png",
               width: 90,

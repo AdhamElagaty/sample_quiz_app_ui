@@ -159,27 +159,27 @@ class ViewAnswersTakeAQuizViewBody extends StatelessWidget {
             CustomElevatedButtonWidget(
               backgroundColor: const Color(0xff86948F),
               textName: "Back",
-              height: 38,
+              height: 44,
               textStyle: AppStyle.styleMedium18.copyWith(
                 color: Colors.white,
-                fontSize: 20,
+                fontSize: 22,
               ),
               onPressed: quizCubit.currentQuestionIndex == 0
                   ? null
                   : () => quizCubit.previousAnswer(),
-              width: 92,
+              width: 108,
             ),
             const Spacer(),
             CustomElevatedButtonWidget(
               backgroundColor: const Color(0xff86948F),
               textName: isLastQuestion ? "Close" : "Next",
-              height: 38,
+              height: 44,
               textStyle: AppStyle.styleMedium18.copyWith(
                 color: Colors.white,
-                fontSize: 20,
+                fontSize: 22,
               ),
               onPressed: quizCubit.nextAnswer,
-              width: 92,
+              width: 108,
             ),
           ],
         ),
