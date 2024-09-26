@@ -50,6 +50,7 @@ class QuizCubit extends Cubit<QuizState> {
   }
 
   Future<void> getAllTakedQuizzes() async {
+    emit(GetTakedQuizzesLoading());
     await _fetchData(
       fetchFunction: TakedQuizController().getAllTakedQuizzes,
       onSuccess: (data) {
@@ -64,7 +65,7 @@ class QuizCubit extends Cubit<QuizState> {
   }
 
   Future<void> deleteQuiz(int index) async {
-    await quizzesModel![index].delete();
+    await QuizController().deleteQuiz(quizzesModel![index].key);
     quizzesModel!.removeAt(index);
     getAllQuizzes();
   }

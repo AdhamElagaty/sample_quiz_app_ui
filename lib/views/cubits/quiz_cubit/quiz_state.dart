@@ -16,6 +16,8 @@ final class GetQuizzesFailure extends QuizState {
 
 final class GetTakedQuizzesNotExist extends QuizState {}
 
+final class GetTakedQuizzesLoading extends QuizState {}
+
 final class GetTakedQuizzesSuccess extends QuizState {}
 
 final class GetTakedQuizzesFailure extends QuizState {
