@@ -46,6 +46,7 @@ class EnterQuizQuestionViewBody extends StatelessWidget {
                       child: const AddQuestionBottomSheetBodyWidget(),
                     ),
                   );
+                  // ignore: use_build_context_synchronously
                   BlocProvider.of<AddQuizCubit>(context)
                       .restAddQuestionBottomSheet();
                 },

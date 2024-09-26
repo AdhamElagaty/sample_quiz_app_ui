@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_quiz_app_ui/models/models/answer_model/answer_model.dart';
 import 'package:sample_quiz_app_ui/utils/app_style.dart';
-import 'package:sample_quiz_app_ui/views/cubits/task_quiz_cubit/task_quiz_cubit.dart';
-import 'package:sample_quiz_app_ui/views/cubits/task_quiz_cubit/task_quiz_state.dart';
+import 'package:sample_quiz_app_ui/views/cubits/task_quiz_cubit/take_quiz_cubit.dart';
+import 'package:sample_quiz_app_ui/views/cubits/task_quiz_cubit/take_quiz_state.dart';
 import 'package:sample_quiz_app_ui/views/widgets/custom_elevated_button_widget.dart';
 import 'package:sample_quiz_app_ui/views/widgets/custom_radio_button.dart';
 
@@ -98,7 +98,7 @@ class QuestionTakeAQuizViewBody extends StatelessWidget {
             },
             value: answersModel[index],
             child: Text(
-              "  ${index + 1} - ${answersModel[index].answerText}",
+              "  ${index + 1} ) ${answersModel[index].answerText}",
               style: AppStyle.styleMedium18,
             ),
           ),
@@ -128,7 +128,7 @@ class QuestionTakeAQuizViewBody extends StatelessWidget {
                       ? null
                       : () {
                           BlocProvider.of<TakeQuizCubit>(context)
-                              .getNextQuestion();
+                              .nextQuestion();
                         },
               width: 92,
             ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sample_quiz_app_ui/models/models/quiz_model/quiz_model.dart';
 import 'package:sample_quiz_app_ui/utils/app_style.dart';
+import 'package:sample_quiz_app_ui/utils/view_custom_dialog.dart';
 import 'package:sample_quiz_app_ui/views/cubits/quiz_cubit/quiz_cubit.dart';
 import 'package:sample_quiz_app_ui/views/cubits/quiz_cubit/quiz_state.dart';
-import 'package:sample_quiz_app_ui/views/cubits/task_quiz_cubit/task_quiz_cubit.dart';
+import 'package:sample_quiz_app_ui/views/cubits/task_quiz_cubit/take_quiz_cubit.dart';
 import 'package:sample_quiz_app_ui/views/take_a_quiz_view.dart';
 import 'package:sample_quiz_app_ui/views/widgets/quiz_widget.dart';
 
@@ -40,11 +40,11 @@ class QuizzesViewBodyWidget extends StatelessWidget {
 
   Widget tasksUIList(QuizState state, BuildContext context) {
     if (state is GetQuizzesSuccess) {
-      final quizzes = BlocProvider.of<QuizCubit>(context).quizzesModel;
-      if (quizzes == null || quizzes.isEmpty) {
+      final cubit = BlocProvider.of<QuizCubit>(context);
+      if (cubit.quizzesModel == null || cubit.quizzesModel!.isEmpty) {
         return buildNoTasksMessage();
       }
-      return buildTasksList(quizzes);
+      return buildTasksList(cubit);
     } else if (state is GetQuizzesNotExist) {
       return buildNoTasksMessage();
     } else if (state is GetQuizzesFailure) {
@@ -64,9 +64,9 @@ class QuizzesViewBodyWidget extends StatelessWidget {
     );
   }
 
-  Widget buildTasksList(List<QuizModel> quizzes) {
+  Widget buildTasksList(QuizCubit cubit) {
     return ListView.builder(
-      itemCount: quizzes.length,
+      itemCount: cubit.quizzesModel!.length,
       itemBuilder: (context, index) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 4.0),
         child: Padding(
@@ -75,18 +75,36 @@ class QuizzesViewBodyWidget extends StatelessWidget {
             horizontal: 8,
           ),
           child: QuizWidget(
-            quizName: quizzes[index].name!,
-            numberOfQuestion: quizzes[index].questions!.length.toString(),
-            id: quizzes[index].key,
+            quizName: cubit.quizzesModel![index].name!.trim(),
+            numberOfQuestion:
+                cubit.quizzesModel![index].questions!.length.toString(),
+            id: cubit.quizzesModel![index].key,
+            onLongPress: () {
+              viewCustomDialog(
+                context: context,
+                title: "Delete Quiz",
+                content: Text(
+                  "Do You Want Delete ${cubit.quizzesModel![index].name!.trim()} Quiz 🤔",
+                  style: AppStyle.styleRegular18,
+                ),
+                cancelButtonText: "Cancel",
+                confirmButtonText: "Delete",
+                onConfirm: () async {
+                  cubit.deleteQuiz(index);
+                },
+              );
+            },
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) {
                     return BlocProvider(
-                      create: (context) =>
-                          TakeQuizCubit(quizModel: quizzes[index]),
-                      child: const TakeAQuizView(),
+                      create: (context) => TakeQuizCubit(),
+                      child: TakeAQuizView(
+                        quizModel: cubit.quizzesModel![index],
+                        imageTag: cubit.quizzesModel![index].key,
+                      ),
                     );
                   },
                 ),

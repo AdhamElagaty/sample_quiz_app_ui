@@ -21,9 +21,12 @@ class CustomAppBarWidget extends StatelessWidget
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                "assets/images/app_logo.png",
-                width: 76,
+              Hero(
+                tag: "app_logo",
+                child: Image.asset(
+                  "assets/images/app_logo.png",
+                  width: 76,
+                ),
               ),
               const Text(
                 "QuizIe",

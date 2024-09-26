@@ -48,8 +48,6 @@ class AddQuizCubit extends Cubit<AddQuizState> {
   String? validateAnswerText(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter a Answer';
-    } else if (value.length < 4) {
-      return 'Answer must be at least 4 characters long';
     } else if (value.length > 100) {
       return 'Answer must not exceed 100 characters';
     }
@@ -59,8 +57,6 @@ class AddQuizCubit extends Cubit<AddQuizState> {
   String? validateQuestionText(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter a Question';
-    } else if (value.length < 4) {
-      return 'Question must be at least 4 characters long';
     } else if (value.length > 200) {
       return 'Question must not exceed 100 characters';
     }
@@ -82,6 +78,9 @@ class AddQuizCubit extends Cubit<AddQuizState> {
     if (addQuestionModel.answers![indexOfAnswer].isRightAnswer == true) {
       addQuestionModel.answers![indexOfAnswer].isRightAnswer = false;
       rightAnswerSelectedIndex = null;
+    } else if (rightAnswerSelectedIndex != null &&
+        rightAnswerSelectedIndex! > indexOfAnswer) {
+      rightAnswerSelectedIndex = rightAnswerSelectedIndex! - 1;
     }
     addQuestionModel.answers!.removeAt(indexOfAnswer);
     emit(AnswerRemoved());
@@ -91,7 +90,7 @@ class AddQuizCubit extends Cubit<AddQuizState> {
     if (formKeyAnswer.currentState!.validate()) {
       addQuestionModel.answers!.add(AnswerModel(
         answerText: answerController.text,
-        isSelected: null,
+        isSelected: false,
       ));
       answerController.clear();
       autovalidateModeAnswer = AutovalidateMode.disabled;

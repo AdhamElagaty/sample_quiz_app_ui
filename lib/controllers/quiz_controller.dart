@@ -28,4 +28,8 @@ class QuizController {
   Future<QuizModel?> getQuizById(int id) async {
     return await _repository.getQuizById(id);
   }
+
+  Future<QuizModel?> getLazyQuizById(int id) async {
+    return await _repository.getLazyQuizById(id);
+  }
 }
