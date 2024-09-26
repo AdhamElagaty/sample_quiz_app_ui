@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sample_quiz_app_ui/utils/app_style.dart';
-import 'package:sample_quiz_app_ui/views/cubits/task_quiz_cubit/task_quiz_cubit.dart';
+import 'package:sample_quiz_app_ui/views/cubits/task_quiz_cubit/take_quiz_cubit.dart';
 import 'package:sample_quiz_app_ui/views/widgets/custom_dialog_box_widget.dart';
 import 'package:sample_quiz_app_ui/views/widgets/custom_text_form_field_widget.dart';
 
 class WelcomeTakeAQuizViewBody extends StatelessWidget {
-  const WelcomeTakeAQuizViewBody({super.key});
+  const WelcomeTakeAQuizViewBody({super.key, this.imageTag});
+
+  final int? imageTag;
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +22,18 @@ class WelcomeTakeAQuizViewBody extends StatelessWidget {
           "Quiz",
           style: AppStyle.styleBold56,
         ),
-        Hero(
-          tag: BlocProvider.of<TakeQuizCubit>(context).quizModel.key,
-          child: Image.asset(
-            "assets/images/quiz_logo.png",
-            width: 160,
-          ),
-        ),
+        imageTag == null
+            ? Image.asset(
+                "assets/images/quiz_logo.png",
+                width: 160,
+              )
+            : Hero(
+                tag: imageTag!,
+                child: Image.asset(
+                  "assets/images/quiz_logo.png",
+                  width: 160,
+                ),
+              ),
         const SizedBox(
           height: 32,
         ),
