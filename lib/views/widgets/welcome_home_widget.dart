@@ -12,9 +12,12 @@ class WelcomeHomeWidget extends StatelessWidget {
           "welcome",
           style: AppStyle.styleBold56,
         ),
-        Image.asset(
-          "assets/images/app_logo_name.png",
-          width: 322,
+        Hero(
+          tag: "app_logo",
+          child: Image.asset(
+            "assets/images/app_logo_name.png",
+            width: 322,
+          ),
         ),
       ],
     );
