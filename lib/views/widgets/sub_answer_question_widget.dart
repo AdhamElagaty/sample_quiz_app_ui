@@ -17,11 +17,15 @@ class SubAnswerQuestionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(
-          "${index + 1}) ${BlocProvider.of<AddQuizCubit>(context).quizModel.questions![indexQuestion].answers![index].answerText}",
-          style: AppStyle.styleBold22,
+        Expanded(
+          child: Text(
+            "${index + 1}) ${BlocProvider.of<AddQuizCubit>(context).quizModel.questions![indexQuestion].answers![index].answerText}",
+            style: AppStyle.styleBold22,
+            maxLines: 4,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
-        const Spacer(),
+        // const Spacer(),
         BlocProvider.of<AddQuizCubit>(context)
                         .quizModel
                         .questions![indexQuestion]
