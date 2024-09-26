@@ -78,6 +78,9 @@ class AddQuizCubit extends Cubit<AddQuizState> {
     if (addQuestionModel.answers![indexOfAnswer].isRightAnswer == true) {
       addQuestionModel.answers![indexOfAnswer].isRightAnswer = false;
       rightAnswerSelectedIndex = null;
+    } else if (rightAnswerSelectedIndex != null &&
+        rightAnswerSelectedIndex! > indexOfAnswer) {
+      rightAnswerSelectedIndex = rightAnswerSelectedIndex! - 1;
     }
     addQuestionModel.answers!.removeAt(indexOfAnswer);
     emit(AnswerRemoved());
