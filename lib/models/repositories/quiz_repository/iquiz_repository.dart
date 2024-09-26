@@ -6,4 +6,5 @@ abstract class IQuizRepository {
   Future<void> deleteQuiz(int id);
   Future<List<QuizModel>> getAllQuizzes();
   Future<QuizModel?> getQuizById(int id);
+  Future<QuizModel?> getLazyQuizById(int id);
 }
