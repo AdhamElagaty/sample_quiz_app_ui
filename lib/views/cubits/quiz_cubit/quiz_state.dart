@@ -13,3 +13,13 @@ final class GetQuizzesFailure extends QuizState {
 
   GetQuizzesFailure({required this.errorMessage});
 }
+
+final class GetTakedQuizzesNotExist extends QuizState {}
+
+final class GetTakedQuizzesSuccess extends QuizState {}
+
+final class GetTakedQuizzesFailure extends QuizState {
+  final String errorMessage;
+
+  GetTakedQuizzesFailure({required this.errorMessage});
+}
