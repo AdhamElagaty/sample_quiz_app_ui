@@ -11,6 +11,11 @@ class TakedQuizCubit extends Cubit<TakedQuizState> {
   QuizModel? quizModel;
   bool isExpanded = false;
 
+  void resetWidgetState() {
+    isExpanded = false;
+    emit(TakedQuizInitial());
+  }
+
   void changeExpantion() {
     isExpanded = !isExpanded;
     emit(ExpantionChanged());
