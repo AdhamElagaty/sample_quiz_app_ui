@@ -8,16 +8,20 @@ class QuizWidget extends StatelessWidget {
     required this.numberOfQuestion,
     required this.id,
     this.onTap,
+    this.onLongPress,
   });
 
   final String quizName;
   final String numberOfQuestion;
   final int id;
   final Function()? onTap;
+  final void Function()? onLongPress;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      borderRadius: BorderRadius.circular(12),
+      onLongPress: onLongPress,
       onTap: onTap,
       child: Card(
         color: const Color(0xffABBFB8),
