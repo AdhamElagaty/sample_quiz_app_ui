@@ -7,13 +7,24 @@ import 'package:sample_quiz_app_ui/views/widgets/custom_app_bar_widget.dart';
 class TakeQuizView extends StatelessWidget {
   const TakeQuizView({super.key});
 
-  final String id = "TakeQuizView"; // Make sure to define your pages.
+  final String id = "TakeQuizView";
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => QuizCubit(),
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: const Color.fromARGB(142, 184, 232, 147),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.exit_to_app,
+            color: Colors.red[300],
+            size: 32,
+          ),
+        ),
         appBar: const CustomAppBarWidget(),
         backgroundColor: const Color(0xff86948F),
         body: BlocBuilder<QuizCubit, QuizState>(
