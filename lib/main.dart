@@ -7,7 +7,6 @@ import 'package:sample_quiz_app_ui/models/models/taked_quiz_model/taked_quiz_mod
 import 'package:sample_quiz_app_ui/utils/constants.dart';
 import 'package:sample_quiz_app_ui/views/create_quiz_view.dart';
 import 'package:sample_quiz_app_ui/views/home_view.dart';
-import 'package:sample_quiz_app_ui/views/take_a_quiz_view.dart';
 import 'package:sample_quiz_app_ui/views/take_quiz_view.dart';
 
 void main() async {
@@ -18,9 +17,6 @@ void main() async {
   Hive.registerAdapter(QuizModelAdapter());
   Hive.registerAdapter(TakedQuizModelAdapter());
 
-  await Hive.openBox<AnswerModel>(kAnswerBox);
-  await Hive.openBox<QuestionModel>(kQuestionBox);
-  await Hive.openBox<QuizModel>(kQuizBox);
   await Hive.openBox<TakedQuizModel>(kTakedQuizBox);
   runApp(const SampleQuizApp());
 }
@@ -37,7 +33,6 @@ class SampleQuizApp extends StatelessWidget {
         const HomeView().id: (context) => const HomeView(),
         const CreateQuizView().id: (context) => const CreateQuizView(),
         const TakeQuizView().id: (context) => const TakeQuizView(),
-        const TakeAQuizView().id: (context) => const TakeAQuizView(),
       },
       initialRoute: const HomeView().id,
     );
